@@ -354,3 +354,4 @@ MonoBehaviour:
   _rb: {fileID: 4248416964141808079}
   _direction: {x: 1, y: 0}
   _speed: 20
+  _lifespan: 2
