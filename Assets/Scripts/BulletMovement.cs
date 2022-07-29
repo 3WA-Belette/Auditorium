@@ -10,23 +10,44 @@ public class BulletMovement : MonoBehaviour
 
     [SerializeField] float _lifespan;
 
-    float _startLife;
+    float _remainingTime;   // Methode deltaTime
+
+    //float _futurDestroyDate;    // Methode Time.time
+
 
     private void Start()
     {
         _rb.velocity = _direction * _speed;
-        _startLife = Time.time;
+
+        // Methode DeltaTime
+        _remainingTime = _lifespan;
+
+        // Methode Time.time
+        //_futurDestroyDate = Time.time + _lifespan;
     }
 
     private void Update()
     {
-        if(Time.time > _startLife+_lifespan)
+        // Methode DeltaTime
+        _remainingTime = _remainingTime - Time.deltaTime;
+        if (_remainingTime < 0) 
         {
             GameObject.Destroy(gameObject);
         }
 
+        // Methode Time.time
+        //if(Time.time> _futurDestroyDate)
+        //{
+        //    GameObject.Destroy(gameObject);
+        //}
     }
 
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameObject.Destroy(gameObject);
+        //Debug.Log("Touché");
+
+    }
 
 }
