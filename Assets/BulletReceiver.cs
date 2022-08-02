@@ -88,4 +88,16 @@ public class BulletReceiver : MonoBehaviour
 
     }
 
+    public bool IsValidated()
+    {
+        if(_currentScore >= _bulletMax)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
