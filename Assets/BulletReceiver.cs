@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BulletReceiver : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class BulletReceiver : MonoBehaviour
     [SerializeField, ColorUsage(true, true)] Color _offSprite; // Sprites color in gauge
     [SerializeField] SpriteRenderer[] _gauge; // Sprites in gauge
 
+    [Header("Event")]
+    [SerializeField] UnityEvent _onBulletReceived;
+    [SerializeField] UnityEvent _onObjectifComplete;
+    [SerializeField] UnityEvent _onLevelFinished;
+
     float _currentScore;  // Le score actuel dans notre jeu
     float _lastBulletReceived;  // La date de la dernière reception d'une bullet
 
@@ -30,9 +36,22 @@ public class BulletReceiver : MonoBehaviour
         BulletMovement bullet = collision.GetComponentInParent<BulletMovement>();
         if(bullet != null)
         {
+            float oldScore = _currentScore;   
+
             _currentScore = Mathf.Min(_currentScore + 1, _bulletMax);
             _lastBulletReceived = Time.time;
             Debug.Log($" Current score {_currentScore}");
+
+            // Si on prend des bullets de base
+            if(_currentScore < _bulletMax)
+            {
+                _onBulletReceived.Invoke();
+            }
+            // Si on vient de taper le score max
+            else if(oldScore < _bulletMax && _currentScore >= _bulletMax)
+            {
+                _onObjectifComplete.Invoke();
+            }
         }
     }
 
@@ -64,6 +83,9 @@ public class BulletReceiver : MonoBehaviour
             }
         }
         _audio.volume = percent;
+
+        
+
     }
 
 }
