@@ -8,6 +8,9 @@ public class BulletReceiver : MonoBehaviour
     [SerializeField] float _idleDuration;   // La durée d'attente avant de baisser notre score
     [SerializeField] float _reductionSpeedInSeconds;   // La vitesse de reduction de notre score
 
+    [Header("Audio")]
+    [SerializeField] AudioSource _audio;    // L'audio que l'on va devoir moduler en fonction du score
+
     [Header("Gauge renderer")]
     [SerializeField, ColorUsage(true, true)] Color _onSprite; // Sprites color in gauge
     [SerializeField, ColorUsage(true, true)] Color _offSprite; // Sprites color in gauge
@@ -45,9 +48,9 @@ public class BulletReceiver : MonoBehaviour
 
         // Combien on a rempli notre objectif ?
         float percent = _currentScore / _bulletMax;
+        Debug.Log(percent);
         // En prenant ce pourcentage, ça représente combien de slot chez nous ?
         float gaugeCompletion = percent * _gauge.Length;
-        Debug.Log(gaugeCompletion);
         // Mettre à jour le rendu de notre compteur
         for (int i = 0; i < _gauge.Length; i++)
         {
@@ -60,6 +63,7 @@ public class BulletReceiver : MonoBehaviour
                 _gauge[i].color = _offSprite;
             }
         }
+        _audio.volume = percent;
     }
 
 }
