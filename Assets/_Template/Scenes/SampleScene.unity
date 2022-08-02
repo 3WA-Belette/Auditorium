@@ -805,7 +805,7 @@ GameObject:
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &797389812
 Transform:
   m_ObjectHideFlags: 0
@@ -907,6 +907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletMax: 10
   _idleDuration: 2
+  _reductionSpeedInSeconds: 1
   _onSprite: {r: 0.24068546, g: 1, b: 0, a: 1}
   _offSprite: {r: 1, g: 0, b: 0, a: 1}
   _gauge:

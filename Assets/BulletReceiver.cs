@@ -6,13 +6,14 @@ public class BulletReceiver : MonoBehaviour
 {
     [SerializeField] int _bulletMax;        // Le score maximal atteignable pour notre objectif
     [SerializeField] float _idleDuration;   // La durée d'attente avant de baisser notre score
+    [SerializeField] float _reductionSpeedInSeconds;   // La vitesse de reduction de notre score
 
     [Header("Gauge renderer")]
     [SerializeField, ColorUsage(true, true)] Color _onSprite; // Sprites color in gauge
     [SerializeField, ColorUsage(true, true)] Color _offSprite; // Sprites color in gauge
     [SerializeField] SpriteRenderer[] _gauge; // Sprites in gauge
 
-    int _currentScore;  // Le score actuel dans notre jeu
+    float _currentScore;  // Le score actuel dans notre jeu
     float _lastBulletReceived;  // La date de la dernière reception d'une bullet
 
     void Start()
@@ -38,12 +39,12 @@ public class BulletReceiver : MonoBehaviour
         if(Time.time > _lastBulletReceived + _idleDuration)
         {
             // Alors on descend notre score
-            _currentScore = Mathf.Max(_currentScore - 1, 0);
+            _currentScore = Mathf.Max(_currentScore - (_reductionSpeedInSeconds * Time.deltaTime), 0);
             Debug.Log($" Current score {_currentScore}");
         }
 
         // Combien on a rempli notre objectif ?
-        float percent = (float)_currentScore / (float)_bulletMax;
+        float percent = _currentScore / _bulletMax;
         // En prenant ce pourcentage, ça représente combien de slot chez nous ?
         float gaugeCompletion = percent * _gauge.Length;
         Debug.Log(gaugeCompletion);
