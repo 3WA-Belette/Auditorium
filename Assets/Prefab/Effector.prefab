@@ -280,6 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68c91fcfe3f0a1469bd79b3cec4b87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 0}
+  _areaCircle: {fileID: 7558456054220763730}
+  _areaEffector: {fileID: 7558456054220763729}
 --- !u!1 &6470884104668343319
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 0}
+  _transformToMove: {fileID: 0}
 --- !u!50 &5277185519491120810
 Rigidbody2D:
   serializedVersion: 4
